@@ -9,11 +9,21 @@ for DIR in /usr/games/bin /usr/local/games/bin /usr/local/bin /opt/wine-staging/
 	export PATH="$DIR:$PATH"
 done
 
-if which emacs >/dev/null; then
-    export EDITOR=$(which emacs)
-    export VISUAL=$(which emacs)
-else
-    echo "WARNING: no emacs on this host yet! install it!"
+if test -z "$EMACS"; then
+    if which emacs >/dev/null; then
+	EMACS=$(which emacs)
+	export EDITOR="$EMACS"
+	export VISUAL="$EMACS"
+	emacs() {
+	    case $TERM in
+		xterm-256color) TERM=xterm "$EMACS" "$@" ;;
+		screen-256color) TERM=screen "$EMACS" "$@" ;;
+		*) "$EMACS" "$@" ;;
+	    esac
+	}
+    else
+	echo "WARNING: no emacs on this host yet! install it!"
+    fi
 fi
 
 if [ -z "$SSH_CLIENT" -a "$(whoami)" != "root" ]; then
