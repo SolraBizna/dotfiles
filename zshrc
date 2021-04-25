@@ -14,7 +14,7 @@ case "$-" in
 	# We're interactive. Try to self-update if flock is available..
 	# (We can't do this before altering PATH, because flock might be
 	# installed outside /usr/bin, e.g. on BSD or macOS.)
-	if [ -z "$__DID_SELF_UPDATE" -a ! -z "$__NO_SELF_UPDATE" -a \
+	if [ -z "$__DID_SELF_UPDATE" -a -z "$__NO_SELF_UPDATE" -a \
 	     ! -f ~/.dotfiles-no-self-update ] &&
 	   which flock >/dev/null 2>&1 &&
 	   [ -z "$(find ~/.dotfiles/ \
