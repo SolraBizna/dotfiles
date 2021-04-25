@@ -4,12 +4,33 @@ export FAKE_BROWSER="Mozilla/3.01Gold (Macintosh; I; 68K)"
 
 # list these in ASCENDING order of priority
 for DIR in /usr/games/bin /usr/local/games/bin /usr/local/bin /opt/wine-staging/bin /opt/wine-devel/bin ~/.cargo/bin /opt/homebrew/bin ~/osxcross/target/bin ~/bin; do
-	if test ! -d "$DIR"; then continue; fi
+	if [ ! -d "$DIR" ]; then continue; fi
 	if echo "$PATH" | tr ':' '\n' | grep -q -F "$DIR"; then continue; fi
 	export PATH="$DIR:$PATH"
 done
 
-if test -z "$EMACS"; then
+case "$-" in
+    *i*)
+	# We're interactive. Try to self-update if flock is available..
+	# (We can't do this before altering PATH, because flock might be
+	# installed outside /usr/bin, e.g. on BSD or macOS.)
+	if [ -z "$__DID_SELF_UPDATE" -a ! -z "$__NO_SELF_UPDATE" -a \
+	     ! -f ~/.dotfiles-no-self-update ] &&
+	   which flock >/dev/null 2>&1 &&
+	   [ -z "$(find ~/.dotfiles/ \
+	           -name .last-self-update -a -mtime -7)" ]
+	then
+	    flock ~/.dotfiles/.last-self-update ~/.dotfiles/self-update.sh
+	    # I hope git updates files the way I think it does...
+	    __DID_SELF_UPDATE=1
+	    source ~/.zshrc
+	    unset __DID_SELF_UPDATE
+	    return
+	fi
+	;;
+esac
+
+if [ -z "$EMACS" ]; then
     if which emacs >/dev/null; then
 	EMACS=$(which emacs)
 	export EDITOR="$EMACS"
@@ -32,3 +53,11 @@ else
 	PS1="%B%(!.%F{red}.%F{magenta})%n%b@%m%B %F{cyan}%1~%f%(?.%F{white}.%F{red})%(!.#.%#) %f%b"
 fi
 
+case "$-" in
+    *i*)
+        # Running interactively. Maybe print a banner.
+	if [ -x ~/.banner ]; then
+	    ~/.banner
+	fi
+	;;
+esac
