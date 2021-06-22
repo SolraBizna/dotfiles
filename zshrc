@@ -1,6 +1,7 @@
 #!/bin/zsh
 
 export FAKE_BROWSER="Mozilla/3.01Gold (Macintosh; I; 68K)"
+export GPG_TTY="$TTY"
 
 # list these in ASCENDING order of priority
 for DIR in /usr/games/bin /usr/local/games/bin /usr/local/bin /opt/wine-staging/bin /opt/wine-devel/bin ~/.cargo/bin /opt/homebrew/bin ~/osxcross/target/bin ~/.local/bin ~/bin /Library/TeX/texbin; do
