@@ -10,6 +10,10 @@ for DIR in /usr/games/bin /usr/local/games/bin /usr/local/bin /opt/wine-staging/
 	export PATH="$DIR:$PATH"
 done
 
+if [ -d ~/android_sdk ]; then
+    export ANDROID_SDK_ROOT=~/android_sdk
+fi
+
 case "$-" in
     *i*)
 	# We're interactive. Try to self-update if flock is available..
