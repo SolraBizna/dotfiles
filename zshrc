@@ -47,7 +47,7 @@ if [ -z "$EMACS" ]; then
 		*) "$EMACS" "$@" ;;
 	    esac
 	}
-    else
+    elif [ "$(whoami)" = "sbizna" ]; then
 	echo "WARNING: no emacs on this host yet! install it!"
     fi
 fi
