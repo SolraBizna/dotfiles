@@ -7,7 +7,7 @@ export GPG_TTY="$TTY"
 DIRS=(/usr/games/bin /usr/local/games/bin /usr/local/bin /opt/wine-staging/bin /opt/wine-devel/bin ${HOME}/.cargo/bin /opt/homebrew/bin /opt/homebrew/opt/binutils/bin ${HOME}/osxcross/target/bin ${HOME}/.local/bin ${HOME}/bin /Library/TeX/texbin ${HOME}/android_sdk/cmdline-tools/bin)
 
 for DIR in ${DIRS}; do
-    PATH="$(echo "$PATH" | tr ':' '\n' | grep -v "^${DIR}\$" | tr '\n' ':' | sed -Ee 's/:+$//')"
+    PATH="$(echo "$PATH" | tr ':' '\n' | grep -vxF "${DIR}" | tr '\n' ':' | sed -Ee 's/:+$//')"
     if [ ! -d "$DIR" ]; then continue; fi
     export PATH="$DIR:$PATH"
 done
