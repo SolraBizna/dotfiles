@@ -6,6 +6,14 @@ export GPG_TTY="$TTY"
 # list these in ASCENDING order of priority
 DIRS=(/usr/games/bin /usr/local/games/bin /usr/local/bin /opt/wine-staging/bin /opt/wine-devel/bin ${HOME}/.cargo/bin /opt/homebrew/bin /opt/homebrew/opt/binutils/bin ${HOME}/osxcross/target/bin ${HOME}/.local/bin ${HOME}/bin /Library/TeX/texbin ${HOME}/android_sdk/cmdline-tools/bin)
 
+if [ -d ${HOME}/bins ]; then
+    for DIR in ${HOME}/bins/*/; do
+        if [ -d "$DIR" ]; then
+            DIRS+="$DIR"
+        fi
+    done
+fi
+
 for DIR in ${DIRS}; do
     PATH="$(echo "$PATH" | tr ':' '\n' | grep -vxF "${DIR}" | tr '\n' ':' | sed -Ee 's/:+$//')"
     if [ ! -d "$DIR" ]; then continue; fi
