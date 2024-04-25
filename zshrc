@@ -45,6 +45,10 @@ case "$-" in
 	;;
 esac
 
+if [ -d ~/.cargo ]; then
+    export CARGO_TARGET_DIR="$HOME/.cargo/shared-target"
+fi
+
 if [ -z "$EMACS" ]; then
     if which emacs >/dev/null; then
 	EMACS=$(which emacs)
