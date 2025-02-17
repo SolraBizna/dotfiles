@@ -4,7 +4,7 @@ export FAKE_BROWSER="Mozilla/3.01Gold (Macintosh; I; 68K)"
 export GPG_TTY="$TTY"
 
 # list these in ASCENDING order of priority
-DIRS=(/usr/games/bin /usr/local/games/bin /usr/local/bin /opt/wine-staging/bin /opt/wine-devel/bin ${HOME}/.cargo/bin /opt/homebrew/bin ${HOME}/osxcross/target/bin ${HOME}/.local/bin ${HOME}/bin /Library/TeX/texbin ${HOME}/android_sdk/cmdline-tools/bin /opt/rv32i/bin)
+DIRS=(/usr/games/bin /usr/local/games/bin /usr/games /usr/local/games /usr/local/bin /opt/wine-staging/bin /opt/wine-devel/bin ${HOME}/.cargo/bin /opt/homebrew/bin ${HOME}/osxcross/target/bin ${HOME}/.local/bin ${HOME}/bin /Library/TeX/texbin ${HOME}/android_sdk/cmdline-tools/bin /opt/rv32i/bin)
 
 if [ -d ${HOME}/bins ]; then
     for DIR in ${HOME}/bins/*/; do
