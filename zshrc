@@ -67,9 +67,9 @@ if [ -z "$EMACS" ]; then
 fi
 
 if [ -z "$SSH_CLIENT" -a "$(whoami)" != "root" ]; then
-	PS1="%B%(!.%F{red}.%F{magenta})%n%f %F{cyan}%1~%f%(?.%F{white}.%F{red})%(!.#.%#) %f%b"
+	PS1="%{[?1042l%}%B%(!.%F{red}.%F{magenta})%n%f %F{cyan}%1~%f%(?.%F{white}.%F{red})%(!.#.%#) %f%b"
 else
-	PS1="%B%(!.%F{red}.%F{magenta})%n%b@%m%B %F{cyan}%1~%f%(?.%F{white}.%F{red})%(!.#.%#) %f%b"
+	PS1="%{[?1042l%}%B%(!.%F{red}.%F{magenta})%n%b@%m%B %F{cyan}%1~%f%(?.%F{white}.%F{red})%(!.#.%#) %f%b"
 fi
 
 case "$-" in
